@@ -1,41 +1,26 @@
-import React, { useState, useEffect } from 'react'
+import { useState, useEffect, useContext } from 'react'
 import { NavLink, useHistory, useLocation } from "react-router-dom";
 import queryString from 'query-string';
 
-// import IconButton from "@material-ui/core/IconButton";
-// import InputAdornment from "@material-ui/core/InputAdornment";
-// import { Button } from '@material-ui/core';
-// import { TextField, InputAdornment } from "@material-ui/core";
-// import ExpandLess from "@material-ui/icons/ExpandLess";
-// import ExpandMore from "@material-ui/icons/ExpandMore";
-import Box from '@mui/material/Box';
 import IconButton from '@mui/material/IconButton';
-import Input from '@mui/material/Input';
-import FilledInput from '@mui/material/FilledInput';
 import OutlinedInput from '@mui/material/OutlinedInput';
 import InputLabel from '@mui/material/InputLabel';
 import InputAdornment from '@mui/material/InputAdornment';
-import FormHelperText from '@mui/material/FormHelperText';
 import FormControl from '@mui/material/FormControl';
-import TextField from '@mui/material/TextField';
-// import Visibility from '@mui/icons-material/Visibility';
-// import VisibilityOff from '@mui/icons-material/VisibilityOff';
-import SearchIcon from '@mui/icons-material/Search';
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 
-
-
 import { MdSearch, MdNotificationsNone, MdAccountCircle } from 'react-icons/md';
+import { QueryContext } from '../../context/QueryContext';
 import './Navbar.scss';
 
 export const Navbar = () => {
-  // console.log('nav render');
-
+  const { query, setQuery } = useContext(QueryContext)
   const [logged, setLogged] = useState<boolean>(true)
   const [searchValue, setSearchValue] = useState<string | undefined | object>("")
   const [searchVisible, setSearchVisible] = useState<boolean>(false)
   const history = useHistory();
   const location = useLocation();
+
   const toggleLodded = () => {
     setLogged(!logged)
   }
@@ -45,23 +30,24 @@ export const Navbar = () => {
 
   useEffect(() => {
     let search = queryString.parse(location.search)
-    console.log(search['']);
     if (search && search['']) {
       setSearchValue(search[''])
       setSearchVisible(true)
     }
-    console.log('first render nav');
   }, [])
 
+  const handleSearchChange = (e: any) => {
+    setSearchValue(e.target.value)
+  }
+  const navToSearch = () => {
+    setQuery(`${searchValue}`)
+    history.push(`/search?=${searchValue}`)
+  }
   const handleKeyDown = (e: any) => {
-    if (e.keyCode == 13) {
+    if (e.keyCode === 13) {
+      navToSearch()
 
-      history.push(`/search?=${searchValue}`)
-
-    } else {
-      return
     }
-
   }
   return (
     <div className='navbar'>
@@ -92,67 +78,56 @@ export const Navbar = () => {
         <li>
           {searchVisible ?
             <>
-              {/* INPUT */}
-              {searchVisible ? <><FormControl sx={{ m: 1, width: '25ch' }} variant='outlined' className='navBar-searchBar'>
-                <InputLabel className={'navBar-searchBar-lbl'} htmlFor="outlined-adornment-search">Szukaj</InputLabel>
-                <OutlinedInput
-                  id="outlined-adornment-search"
-                  type={'text'}
-                  value={searchValue}
-                  onChange={(e) => { setSearchValue(e.target.value) }}
-                  onKeyDown={(e) => { handleKeyDown(e) }}
-                  endAdornment={
-                    <InputAdornment position="end">
-                      <IconButton
-                        onClick={(e) => {
-                          console.log('nav search');
-                          history.push(`/search?=${searchValue}`);
-                          // console.log('setSearchVisible(!searchVisible)');
-                        }}
-                        edge="end"
-                      >
-                        <NavigateNextIcon />
-                      </IconButton>
-                    </InputAdornment>
-                  }
-                  label="Szukaj"
-                />
-              </FormControl></>
+              {searchVisible ? <>
+                <FormControl sx={{ m: 1, width: '25ch' }} variant='outlined' className='navBar-searchBar'  >
+                  <InputLabel className={'navBar-searchBar-lbl'} htmlFor="outlined-adornment-search">Szukaj</InputLabel>
+                  <OutlinedInput 
+                    id="outlined-adornment-search"
+                    type={'text'}
+                    value={searchValue}
+                    onChange={handleSearchChange}
+                    onKeyDown={handleKeyDown}
+                    autoFocus 
+                    endAdornment={
+                      <InputAdornment position="end">
+                        <IconButton
+                          onClick={navToSearch}
+                          edge="end"
+                        >
+                          <NavigateNextIcon />
+                        </IconButton>
+                      </InputAdornment>
+                    }
+                    label="Szukaj"
+                  />
+                </FormControl></>
                 : <></>}
 
 
               <MdSearch className='navIcon' onClick={toggleSearchVisible} /></> :
             <>
-              {/* <NavLink exact to={'/test2'}> */}
-              <MdSearch className='navIcon' onClick={toggleSearchVisible} />
-              {/* </NavLink> */}
+
+              <MdSearch className='navIcon' onClick={() => {
+                toggleSearchVisible()
+              }} />
+
             </>}
-
-
-
         </li>
         {logged ?
           <>
             <li>
-              {/* <NavLink exact to={'/test2'}> */}
-
               <MdNotificationsNone className='navIcon' />
-              {/* </NavLink> */}
             </li>
             <li>
               <MdAccountCircle className='navIcon' onClick={toggleLodded} />
             </li>
 
-          </> :
-          <>
+          </> : <>
             <li className={'navUserPanel-lastItem'}>
-
               <button className='navBtn navLoginBtn' onClick={toggleLodded}>Zaloguj Się</button>
             </li>
           </>}
-        {/* <NavLink exact to={'/test2'}> */}
-        {/* <span></span> */}
-        {/* </NavLink></> */}
+
 
 
       </ul>
