@@ -34,18 +34,12 @@
             max-width: inherit;
             width: 33px;
             height: 32px;
-
         }
-
     }
 
     .navList {
         display: flex;
         margin: 22.5px 0 30.5px 0;
-
-        @media (max-width: 800px) {
-            // display: none
-        }
 
         li {
             margin-left: 32px;
@@ -148,11 +142,6 @@
                 width: 28px;
                 height: 28px;
                 vertical-align: middle;
-                .notificationIcon{
-                    @media (max-width: 800px) {       
-                        // display:none
-                    }
-                }
             }
         }
 

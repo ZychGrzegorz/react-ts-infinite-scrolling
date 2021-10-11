@@ -1,17 +1,19 @@
 .searchContainer {
     margin: 70px 100px 40px 100px;
+
     @media (max-width: 650px) {
         margin: 30px 20px 20px 20px;
 
     }
-    @media (max-width: 350px) {
-        margin: 10px 5px 
 
+    @media (max-width: 350px) {
+        margin: 10px 5px
     }
+
     .searchInput {
         font-size: 1.2em;
         margin-bottom: 10px;
-        padding-bottom:5px;
+        padding-bottom: 5px;
         border-bottom: 2px solid #9e1c1c;
 
         .searchInputQuery {
@@ -22,33 +24,31 @@
     }
 
     .searchList {
-       
+
         display: flex;
         flex-wrap: wrap;
 
         @media (min-width: 1000px) {
-            padding-top:30px;
+            padding-top: 30px;
         }
 
         .searchList-Element {
-            // flex-basis:20%;
-
             margin: 3px 0px;
             padding: 5px 0px;
             flex-grow: 1;
             flex-shrink: 1;
+
             @media (min-width: 400px) {
                 margin: 10px 5px;
-            padding: 5px 5px;
+                padding: 5px 5px;
 
             }
+
             @media (min-width: 1000px) {
                 margin: 15px 15px;
                 padding: 15px 20px;
 
             }
-           
-            // border: 2px solid black;
 
             .searchList-ElementContainer {
                 border: 1px black solid;
@@ -56,11 +56,12 @@
                 border-radius: 5px;
                 display: flex;
                 justify-content: space-between;
-                // background-color: rgb(137, 245, 127);
+
                 @media (max-width: 400px) {
-               flex-direction: column;
+                    flex-direction: column;
 
                 }
+
                 .cardElement {
 
                     margin: 10px;
@@ -118,7 +119,6 @@
 
     .loadingContainer {
         display: flex;
-        // text-align: center;
         width: 100%;
         margin: 50px auto;
 

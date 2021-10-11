@@ -1,25 +1,23 @@
 import { useState, useEffect, useContext } from 'react'
+import './Navbar.scss';
 import { NavLink, useHistory, useLocation } from "react-router-dom";
+import { QueryContext } from '../../context/QueryContext';
 import queryString from 'query-string';
-
 import IconButton from '@mui/material/IconButton';
 import OutlinedInput from '@mui/material/OutlinedInput';
 import InputLabel from '@mui/material/InputLabel';
 import InputAdornment from '@mui/material/InputAdornment';
 import FormControl from '@mui/material/FormControl';
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
-
 import { MdSearch, MdNotificationsNone, MdAccountCircle } from 'react-icons/md';
-import { QueryContext } from '../../context/QueryContext';
-import './Navbar.scss';
 
 export const Navbar = () => {
-  const { query, setQuery } = useContext(QueryContext)
-  const [logged, setLogged] = useState<boolean>(true)
+  const { setQuery } = useContext(QueryContext)
+  const [logged, setLogged] = useState<boolean>(false)
   const [searchValue, setSearchValue] = useState<string | undefined | object>("")
   const [searchVisible, setSearchVisible] = useState<boolean>(false)
-  const history = useHistory();
-  const location = useLocation();
+  const history = useHistory<History>();
+  const location = useLocation<Location>();
 
   const toggleLodded = () => {
     setLogged(!logged)
@@ -34,7 +32,7 @@ export const Navbar = () => {
       setSearchValue(search[''])
       setSearchVisible(true)
     }
-  }, [])
+  }, [location.search])
 
   const handleSearchChange = (e: any) => {
     setSearchValue(e.target.value)
@@ -59,17 +57,17 @@ export const Navbar = () => {
 
       <ul className="navList">
         <li>
-          <NavLink exact to={'/'}>
+          <NavLink exact to={'/wydarzenia'}>
             Wydarzenia
           </NavLink>
         </li>
         <li>
-          <NavLink exact to={'/test'}>
+          <NavLink exact to={'/kontakt'}>
             Kontakt
           </NavLink>
         </li>
         <li>
-          <NavLink exact to={'/test2'}>
+          <NavLink exact to={'/wesprzyj-nas'}>
             Wesprzyj Nas
           </NavLink>
         </li>
