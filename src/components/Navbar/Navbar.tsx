@@ -116,10 +116,10 @@ export const Navbar = () => {
         {logged ?
           <>
             <li>
-              <MdNotificationsNone className='navIcon' />
+              <MdNotificationsNone className='navIcon notificationIcon' />
             </li>
             <li>
-              <MdAccountCircle className='navIcon' onClick={toggleLodded} />
+              <MdAccountCircle className='navIcon circleIcon' onClick={toggleLodded} />
             </li>
 
           </> : <>
@@ -127,13 +127,7 @@ export const Navbar = () => {
               <button className='navBtn navLoginBtn' onClick={toggleLodded}>Zaloguj Się</button>
             </li>
           </>}
-
-
-
       </ul>
-      <button className={'navHamburger'}>
-        <img src="https://icon-library.com/images/svg-hamburger-icon/svg-hamburger-icon-11.jpg" alt="" />
-      </button>
     </div >
   )
 }

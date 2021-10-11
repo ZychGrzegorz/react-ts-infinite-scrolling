@@ -29,7 +29,7 @@ export const useSearch = (query: string, pageNumber: number) => {
       body: JSON.stringify({
         query: `
           {
-            search(query: "${query}", type: REPOSITORY,  first: 10 ${after ? ', after: "' + after + '"' : ''}) {
+            search(query: "${query}", type: REPOSITORY,  first: 25 ${after ? ', after: "' + after + '"' : ''}) {
               repositoryCount
               edges {
                 cursor
@@ -37,6 +37,13 @@ export const useSearch = (query: string, pageNumber: number) => {
                   ... on Repository {
                     id
                     name
+                    createdAt
+                    homepageUrl
+                    owner {
+                      login
+                      avatarUrl
+                    }
+                    url
                   }
                 }
               }
@@ -55,7 +62,6 @@ export const useSearch = (query: string, pageNumber: number) => {
         setRepos((prevRepos: any) => {
           const set = new Set([...prevRepos, ...res.data.search.edges])
           const array = Array.from(set)
-          console.log(array);
           return (array)
         })
        
@@ -65,7 +71,6 @@ export const useSearch = (query: string, pageNumber: number) => {
 
       })
       .catch((err) => {
-        console.log(err);
         setError((err as Error).message)
         setLoading(false)
       })
@@ -73,7 +78,6 @@ export const useSearch = (query: string, pageNumber: number) => {
 
 
   useEffect(() => {
-    console.log('query change');
     setRepos([])
     setQueryAfter('')
     fetchRepo("")
@@ -81,13 +85,8 @@ export const useSearch = (query: string, pageNumber: number) => {
   }, [query])
 
   useEffect(() => {
-    console.log('pageNum change');
-    // setLoading(true)
-    // setError("")
-    if(repos.length) fetchRepo(queryAfter)
-   
+    if(repos.length && hasNextPage) fetchRepo(queryAfter)
   }, [pageNumber])
-
 
   return ({ repos, loading, error, hasNextPage })
 }

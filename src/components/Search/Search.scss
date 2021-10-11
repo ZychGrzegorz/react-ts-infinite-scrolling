@@ -1,7 +1,135 @@
-.searchListElement{
-    margin: 100px 10px 100px 50px;
+.searchContainer {
+    margin: 70px 100px 40px 100px;
+    @media (max-width: 650px) {
+        margin: 30px 20px 20px 20px;
 
-   & .last{
-    border: 2px solid red
+    }
+    @media (max-width: 350px) {
+        margin: 10px 5px 
+
+    }
+    .searchInput {
+        font-size: 1.2em;
+        margin-bottom: 10px;
+        padding-bottom:5px;
+        border-bottom: 2px solid #9e1c1c;
+
+        .searchInputQuery {
+            margin-left: 3px;
+            font-weight: bold;
+
+        }
+    }
+
+    .searchList {
+       
+        display: flex;
+        flex-wrap: wrap;
+
+        @media (min-width: 1000px) {
+            padding-top:30px;
+        }
+
+        .searchList-Element {
+            // flex-basis:20%;
+
+            margin: 3px 0px;
+            padding: 5px 0px;
+            flex-grow: 1;
+            flex-shrink: 1;
+            @media (min-width: 400px) {
+                margin: 10px 5px;
+            padding: 5px 5px;
+
+            }
+            @media (min-width: 1000px) {
+                margin: 15px 15px;
+                padding: 15px 20px;
+
+            }
+           
+            // border: 2px solid black;
+
+            .searchList-ElementContainer {
+                border: 1px black solid;
+                box-shadow: 8px -6px teal;
+                border-radius: 5px;
+                display: flex;
+                justify-content: space-between;
+                // background-color: rgb(137, 245, 127);
+                @media (max-width: 400px) {
+               flex-direction: column;
+
+                }
+                .cardElement {
+
+                    margin: 10px;
+
+                    a {
+                        text-decoration: none;
+                        color: inherit;
+                    }
+                }
+
+                .infoContainer {
+                    display: flex;
+                    flex-direction: column;
+
+                    .cardAvatar {
+                        width: 30px;
+                        height: 30px;
+                    }
+
+                    .cardtitle {
+                        margin-left: 5px;
+
+                        margin-bottom: 7px;
+                        color: #111;
+                        font-weight: 700;
+                        font-size: 1.1em;
+                    }
+
+                    .cardAuthor {
+                        margin-left: 5px;
+                        color: #9e1c1c !important;
+                    }
+
+                    .cardCreatedAt {
+                        margin-top: 3px;
+                        font-size: 0.8em;
+                        color: #8a8a8a;
+                    }
+                }
+
+
+
+                .iconsContainer {
+                    display: flex;
+
+                    .cardIcon {
+                        width: 25px;
+                        height: 25px;
+                        margin: 5px;
+                    }
+                }
+            }
+        }
+    }
+
+    .loadingContainer {
+        display: flex;
+        // text-align: center;
+        width: 100%;
+        margin: 50px auto;
+
+        .loadingIcon {
+            margin-left: auto;
+            margin-right: auto;
+            color: teal;
+        }
+    }
+
+    .searchingInfo {
+        font-size: 1.2em;
     }
 }
