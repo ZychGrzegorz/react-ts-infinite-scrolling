@@ -84,6 +84,8 @@ export const Search = () => {
                                             <div className='iconsContainer cardElement'>
                                                 <a target="_blank" href={el.node?.url}> <FaGithub className='cardIcon' /></a>
                                                 {el.node?.homepageUrl && <a target="_blank" href={el.node?.homepageUrl}>  <VscDebugStart className='cardIcon' /> </a>}
+
+
                                             </div>
                                         </div>
                                     </li>)
@@ -94,6 +96,7 @@ export const Search = () => {
                 <div className='errorContainer container'>{error && <span>Wystąpił błąd: <span className='searchingInfo'>{error}</span></span>}</div>
                 <div>{(repos.length && !hasNextPage) ? <span className='searchingInfo'>Nie znaleziono więcej wyników</span> : null}</div>
                 <div>{(!repos.length && !loading && !error) && <span className='searchingInfo'>Przepraszamy, ale nie znaleźliśmy podanej przez Ciebie frazy.</span>}</div></div>
+
         </div>
     )
 }

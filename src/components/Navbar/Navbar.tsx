@@ -34,17 +34,16 @@ export const Navbar = () => {
     }
   }, [location.search])
 
-  const handleSearchChange = (e: any) => {
+  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchValue(e.target.value)
   }
   const navToSearch = () => {
     setQuery(`${searchValue}`)
     history.push(`/search?=${searchValue}`)
   }
-  const handleKeyDown = (e: any) => {
+  const handleKeyDown = (e: React.KeyboardEvent) => {
     if (e.keyCode === 13) {
       navToSearch()
-
     }
   }
   return (
@@ -76,22 +75,19 @@ export const Navbar = () => {
         <li>
           {searchVisible ?
             <>
-              {searchVisible ? <>
+              {searchVisible && <>
                 <FormControl sx={{ m: 1, width: '25ch' }} variant='outlined' className='navBar-searchBar'  >
                   <InputLabel className={'navBar-searchBar-lbl'} htmlFor="outlined-adornment-search">Szukaj</InputLabel>
-                  <OutlinedInput 
+                  <OutlinedInput
                     id="outlined-adornment-search"
                     type={'text'}
                     value={searchValue}
                     onChange={handleSearchChange}
                     onKeyDown={handleKeyDown}
-                    autoFocus 
+                    autoFocus
                     endAdornment={
                       <InputAdornment position="end">
-                        <IconButton
-                          onClick={navToSearch}
-                          edge="end"
-                        >
+                        <IconButton onClick={navToSearch} edge="end">
                           <NavigateNextIcon />
                         </IconButton>
                       </InputAdornment>
@@ -99,15 +95,13 @@ export const Navbar = () => {
                     label="Szukaj"
                   />
                 </FormControl></>
-                : <></>}
+              }
 
 
-              <MdSearch className='navIcon' onClick={toggleSearchVisible} /></> :
+              <MdSearch className='navIcon' onClick={toggleSearchVisible} /></>
+            :
             <>
-
-              <MdSearch className='navIcon' onClick={() => {
-                toggleSearchVisible()
-              }} />
+              <MdSearch className='navIcon' onClick={toggleSearchVisible} />
 
             </>}
         </li>
@@ -119,8 +113,9 @@ export const Navbar = () => {
             <li>
               <MdAccountCircle className='navIcon circleIcon' onClick={toggleLodded} />
             </li>
-
-          </> : <>
+          </>
+          :
+          <>
             <li className={'navUserPanel-lastItem'}>
               <button className='navBtn navLoginBtn' onClick={toggleLodded}>Zaloguj Się</button>
             </li>

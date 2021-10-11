@@ -1,8 +1,15 @@
 import { useEffect, useState, useCallback } from 'react'
 
-export const useSearch = (query: string, pageNumber: number) => {
+type useSearchReturn = {
+  repos: repoType[],
+  loading: boolean,
+  error: string,
+  hasNextPage: boolean
+}
 
-  const REACTT_APP_GITHUB_ACCESS_TOKEN: string = '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'
+export const useSearch = (query: string, pageNumber: number): useSearchReturn => {
+
+  const REACTT_APP_GITHUB_ACCESS_TOKEN: string = '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'
 
   const [loading, setLoading] = useState<boolean>(true)
   const [error, setError] = useState<string>("")
@@ -11,7 +18,6 @@ export const useSearch = (query: string, pageNumber: number) => {
   const [repos, setRepos] = useState<repoType[]>([])
 
   const fetchRepo = useCallback((after: string) => {
-
     if (query.length < 3) {
       setLoading(false)
       return
@@ -55,7 +61,11 @@ export const useSearch = (query: string, pageNumber: number) => {
     })
       .then((res) => res.json())
       .then((res) => {
+        console.log(res);
+        console.log(query)
+        console.log(repos);
         setRepos((prevRepos: repoType[]) => {
+          console.log(prevRepos);
           const set = new Set([...prevRepos, ...res.data.search.edges])
           const array = Array.from(set)
           return (array)
